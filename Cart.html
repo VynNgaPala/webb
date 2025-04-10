@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="images/slime.png" alt="Logo" height="40" class="me-2" />
+        Rimuru's Treasures
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#product-container">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="cart.html">
+              <img src="images/cart.png" alt="Cart" height="25" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cart Content -->
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Your Cart</h2>
+    <div id="cartItems" class="row g-4 justify-content-center">
+      <!-- Cart items will appear here -->
+    </div>
+    <div class="text-center mt-4">
+      <h4>Total: <span id="cartTotal">₱0.00</span></h4>
+      <button class="btn mt-3" onclick="checkoutCart()">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2025 Rimuru's Treasures. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function renderCart() {
+      const cartItemsContainer = document.getElementById("cartItems");
+      cartItemsContainer.innerHTML = "";
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `<p class="text-center text-white">Your cart is empty.</p>`;
+        document.getElementById("cartTotal").textContent = "₱0.00";
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "col-md-4";
+        card.innerHTML = `
+          <div class="card bg-dark text-white shadow-sm h-100">
+            <img src="${item.img}" class="card-img-top product-img" alt="${item.name}">
+            <div class="card-body">
+              <h5 class="card-title">${item.name}</h5>
+              <p class="card-text">${item.price}</p>
+              <button class="btn btn-danger w-100" onclick="removeFromCart(${index})">Remove</button>
+            </div>
+          </div>
+        `;
+        cartItemsContainer.appendChild(card);
+      });
+
+      calculateTotal();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function calculateTotal() {
+      let total = 0;
+      cart.forEach(item => {
+        const numericPrice = parseFloat(item.price.replace(/[₱,]/g, ""));
+        total += numericPrice;
+      });
+      document.getElementById("cartTotal").textContent = "₱" + total.toLocaleString(undefined, { minimumFractionDigits: 2 });
+    }
+
+    function checkoutCart() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      alert("Thank you for your purchase! Your order has been placed.");
+      localStorage.removeItem("cart");
+      window.location.reload();
+    }
+
+    renderCart();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

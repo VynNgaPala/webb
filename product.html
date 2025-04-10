@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <img src="images/slime.png" alt="E-Shop Logo" height="40" class="me-2" />
+      <a class="navbar-brand" href="index.html">Tensura Figurines - Rimuru's Treasures</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#product-container">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="cart.html">
+              <img src="images/cart.png" alt="Cart" style="height: 24px;" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="row">
+      <!-- Carousel Section -->
+      <div class="col-md-6">
+        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner" id="carouselInner">
+            <!-- JS will insert images here -->
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Info Section -->
+      <div class="col-md-6">
+        <h2 id="productName">Product Name</h2>
+        <p id="productPrice" class="text-muted">₱0.00</p>
+        <p id="productDescription">Full product description goes here...</p>
+        <h5>Product Features</h5>
+        <ul id="productFeatures"></ul>
+        <button id="addToCartBtn" class="btn btn-success">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2025 Rimuru's Treasures. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    const products = {
+      1: {
+        name: "Shuna: Yukata Ver. 1/4 Scale Figure",
+        price: "₱5,500",
+        img: ["images/Shuna.jpg", "images/Shuna(3).webp","images/Shuna(4).webp","images/Shuna(5).webp","images/Shuna(6).webp"],
+        description: "From the anime series That Time I Got Reincarnated as a Slime comes a figure of the ogre princess Shuna in a yukata! The dainty and beautiful Shuna in a yukata has been sculpted in an impressive 1/4 scale!",
+        features: ["15.3 inches tall", "1/4 Scale", "Made of plastic", "Part of the B-Style series","Non-articulated"]
+      },
+      2: {
+        name: "Milim Nava: Dragonoid Ver. 1/7 Scale Figure",
+        price: "₱10,000",
+        img: ["images/milim.jpg", "images/milim2.jpg","images/milim3.jpg","images/milim4.jpg","images/milim5.webp"],
+        description: "From the anime series, That Time I Got Reincarnated as a Slime, comes the Milim Nava (Dragonoid Ver.) 1/7 scale figure by Ques Q. This figure displays Milim Nava in her memorable Dragonoid form as she holds a large 2 handed sword behind her with a trail of flames ready to be unleashed. Standing around 10 inches tall this figure is sure to be a terrific addition to any display!",
+        features: ["10.03 inches", "1/7 Scale", "Highly detailed","Made of PVC and ABS","Highly detailed","Non-articulated"]
+      },
+      3: {
+        name: "Shion: Yukata Ver. 1/4 Scale Figure",
+        price: "₱6,500",
+        img: ["images/Shion.jpg", "images/shion2.webp", "images/shion3.webp","images/shion4.webp","images/shion5.webp"],
+        description: "From the anime That Time I Got Reincarnated as a Slime comes a figure of Shion, the First Secretary of Rimuru Tempest, in a yukata! The alluring Shion stands at an impressive 1/4 scale, dressed in a yukata that shows off her rare demure side. Be sure to add this figure to your collection",
+        features: ["17.72 inches", "Made of PVC, ABS", "Part of the B-Style line", "Highly detailed","Non-articulated"]
+      },
+      4: {
+    name: "Legendary Hero: Shizue Izawa",
+    price: "₱7,000",
+    img: ["images/Shizu.jpg", "images/shizu2.webp", "images/shizu3.webp","images/shizu4.jpg","images/shizu5.webp"],
+    description: "From the anime series That Time I Got Reincarnated as a Slime comes a scale figure of the first person the reincarnated Rimuru met in the new world, Shizue. Shizue has been recreated standing in a grassy field with Rimuru at her feet. Shizue's anti-magic mask and an alternate face part are included, allowing you to display her in a different way according to your preference.",
+    features: ["8.86 inches (22.50cm)","Made of PVC and ABS","Includes an anti-magic mask and an alternate face part","Highly detailed" ]
+},
+5: {
+    name: "Rimuru Tempest",
+    price: "₱2,100",
+    img: ["images/rimuru.jpg", "images/rimuru2.webp", "images/rimuru3.webp","images/rimuru4.webp","images/rimuru5.webp"],
+    description: "From the anime series That Time I Got Reincarnated as a Slime comes an Otherworlder figure of Rimuru Tempest! Measuring around 6 inches tall, this dynamic figure is the perfect size for anime figure collection.",
+    features: [ "6.3 inches (16cm)", "Made of PVC and ABS","Part of the Pop Up Parade line" ]
+},
+6: {
+    name: "Ramiris Pixie",
+    price: "₱2,000",
+    img: ["images/ramiris.jpg", "images/ramiris2.webp","images/ramiris3.webp","images/ramiris4.webp","images/ramiris5.webp"],
+    description: "The Ramiris figure from That Time I Got Reincarnated as a Slime is here! She is seen sitting atop a couple of slime, and will make a great addition to your collection!",
+    features: ["4.7 inches (12cm)", "Made of PVC and ABS", "Highly detailed","Non-articulated"]
+},
+7: {
+    name: "Veldra Tempest",
+    price: "₱5,000",
+    img: ["images/Veldra.jpg", "images/Veldra2.jpg","images/Veldra3.jpg","images/Veldra4.webp"],
+    description: "Veldora Tempest is a character from the anime series, “That Time I Got Reincarnated as a Slime.” Known as the Storm Dragon Veldora, he is considered a True Dragon, the highest tier of Divine Monster Spirits in the series. Make sure to add this figure to your collection!",
+    features: ["7.9 inches (20.1cm)","Made of plastic", "Highly detailed","Non-articulated"]
+},
+8: {
+    name: "Master of the Dark: Souei",
+    price: "₱5,000",
+    img: ["images/Souei.jpg", "images/Souei2.webp","images/Souei3.webp","images/Souei4.webp","images/Souei5.webp"],
+    description: "That Time I Got Reincarnated as a Slime collection would be complete without Rimuru's faithful shadow Souei. This highly detailed figure stands just over 8 inches tall and is sure to please any fan.",
+    features: ["8.3 inches (21cm)","Made of PVC and ABS","Highly detailed","Non-articulated" ]
+},
+9: {
+    name: "Crimson Circle: Benimaru",
+    price: "₱5,000",
+    img: ["images/Benimaru.jpg", "images/Benimaru2.webp","images/Benimaru3.webp","images/Benimaru4.webp","images/Benimaru5.webp"],
+    description: "Show your love for all things That Time I Got Reincarnated as a Slime with this highly detailed Benimaru figure from Banpresto.",
+    features: ["8.3 inches (21cm)", "Made of PVC and ABS","Highly detailed","Non-articulated" ]
+},
+10: {
+    name: "Primordial Black: Diablo",
+    price: "₱2,000",
+    img: ["images/diablo.jpg", "images/Diablo3.webp","images/Diablo2.webp","images/Diablo4.webp"],
+    description: "The Diablo figure from That Time I Got Reincarnated as a Slime is here! Flying with Elegant and Grace, In his demon form, this will make a great addition to your collection!",
+    features: ["Brand: BANPRESTO","Character Name: Diablo","Item Height: 7.50 inches"
+    ]
+},
+11: {
+    name: "Vibration Stars: Hinata Sakaguchi",
+    price: "₱1,550.56",
+    img: ["images/hinata.jpg", "images/hinata2.webp","images/hinata3.webp","images/hinata4.webp","images/hinata5.webp"],
+    description: "Slime Shop is proud to introduce the next entry into their fan favorite Vibration Stars series: Hinata Sakaguchi! You won't want to miss out on adding this figure to your collection! Order yours today!",
+    features: ["7.5 inches tall (19cm)","Made of plastic","Part of the Vibration Stars series","Highly detailed","Non-articulated" ]
+},
+12: {
+    name: "Primordial Red: Guy Crimson",
+    price: "₱1,287.40",
+    img: ["images/guy.jpg", "images/guy2.webp","images/guy3.webp","images/guy4.webp","images/guy5..webp"],
+    description: "The powerful Primordial Red Demon Lord with a Staunching Aura. Guy Crimson is captured standing confidently, ready for battle, making this an impressive addition to any collection!",
+    features: ["7.5 inches (19.1cm)","Made of plastic","Part of the Otherworlder figure line","Highly detailed","Non-articulated" ]
+}
+
+    };
+
+    if (products[productId]) {
+      const product = products[productId];
+      const carouselInner = document.getElementById("carouselInner");
+      const productName = document.getElementById("productName");
+      const productPrice = document.getElementById("productPrice");
+      const productDescription = document.getElementById("productDescription");
+      const productFeatures = document.getElementById("productFeatures");
+      const addToCartBtn = document.getElementById("addToCartBtn");
+
+      
+      productName.textContent = product.name;
+      productPrice.textContent = product.price;
+      productDescription.textContent = product.description;
+
+      
+      const images = Array.isArray(product.img) ? product.img : [product.img];
+      images.forEach((src, index) => {
+        const div = document.createElement("div");
+        div.className = `carousel-item${index === 0 ? " active" : ""}`;
+        div.innerHTML = `<img src="${src}" class="d-block w-100 rounded shadow" alt="Product Image ${index + 1}">`;
+        carouselInner.appendChild(div);
+      });
+
+     
+      productFeatures.innerHTML = "";
+      product.features.forEach(feature => {
+        const li = document.createElement("li");
+        li.textContent = feature;
+        productFeatures.appendChild(li);
+      });
+
+     
+      addToCartBtn.addEventListener("click", () => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const newProduct = {
+          name: product.name,
+          price: product.price,
+          img: images[0], 
+          quantity: 1
+        };
+
+        const existingItem = cart.find(item => item.name === newProduct.name);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push(newProduct);
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${product.name} has been added to your cart.`);
+      });
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
